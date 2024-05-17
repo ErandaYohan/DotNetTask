@@ -35,6 +35,20 @@ namespace DotNetTask.Controllers
             return task;
         }
 
+        // GET: api/admin/{taskId}
+        // Retrieves a specific task by its ID in Candidate Table
+        [HttpGet("{candidateId}/task")]
+        public async Task<ActionResult<PersonalInformation>> GetCandidateTask(string candidateId)
+        {
+            var task = await _candidateRepository.GetTaskByIdCandidateAsync(candidateId);
+            if (task == null)
+            {
+                return NotFound(); // Returns 404 if the task is not found
+            }
+
+            return task;
+        }
+
         // PUT: api/admin/{taskId}
         // Retrieves a specific task by its ID And Create New Record.
         [HttpPut("{taskId}")]
@@ -53,7 +67,7 @@ namespace DotNetTask.Controllers
 
             personalInformation.id = existingTask.id; // Preserve the original ID
             var createdTask = await _candidateRepository.CreateAsNewRecord(personalInformation);
-            return CreatedAtAction(nameof(GetTask), new { userId = createdTask.id }, createdTask);
+            return CreatedAtAction(nameof(GetCandidateTask), new { userId = createdTask.id }, createdTask);
         }
     }
 }

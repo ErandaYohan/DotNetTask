@@ -53,6 +53,22 @@ namespace DotNetTask.Models
             [JsonProperty("answer")]
             public string Answer { get; set; }
         }
+        public class DropDownTemplate 
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
+            [JsonProperty("question")]
+            public string Question { get; set; }
+            [JsonProperty("answer")]
+            public List<DropDownMultipleChoice> dropDownMultipleChoices { get; set; }
+        }
+        public class DropDownMultipleChoice
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
+            [JsonProperty("answer")]
+            public string Answer { get; set; }
+        }
         public class PersonalInformation
         {
             [JsonProperty("id")]
@@ -78,6 +94,7 @@ namespace DotNetTask.Models
             public List<NumericQuestion> NumericQuestion { get; set; } = new List<NumericQuestion>();
             public List<DateQuestion> DateQuestion { get; set; } = new List<DateQuestion>();
             public List<YesOrNoQuestion> YesOrNoQuestion { get; set; } = new List<YesOrNoQuestion>();
+            public List<DropDownTemplate> dropDownTemplates { get; set; } = new List<DropDownTemplate>();
         }
     }
 }

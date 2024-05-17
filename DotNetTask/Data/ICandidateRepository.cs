@@ -9,6 +9,7 @@ namespace DotNetTask.Data
         /// Provides methods to create, retrieve program tasks.
         /// </summary>
         Task<PersonalInformation> GetTaskByIdAsync(string userId);
+        Task<PersonalInformation> GetTaskByIdCandidateAsync(string userId);
         Task<PersonalInformation> CreateAsNewRecord(PersonalInformation task);
     }
 }

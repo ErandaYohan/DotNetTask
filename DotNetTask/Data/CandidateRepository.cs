@@ -18,9 +18,10 @@ namespace DotNetTask.Data
             this.cosmosClient = cosmosClient;
             this.configuration = configuration;
             var databaseName = configuration["CosmosDbSettings:DatabaseName"]; 
-            var taskContainerName = "PersonalProgram";
+            var taskContainerName = "ProgramDetails";
+            var taskCandidateContainerName = "PersonalProgram";
             _taskContainer = cosmosClient.GetContainer(databaseName, taskContainerName); // Get container reference for existing records
-            _taskPersonContainer = cosmosClient.GetContainer(databaseName, taskContainerName); // Get container reference for new records
+            _taskPersonContainer = cosmosClient.GetContainer(databaseName, taskCandidateContainerName); // Get container reference for new records
         }
 
         // Method to retrieve a task by ID
@@ -35,6 +36,21 @@ namespace DotNetTask.Data
             var sqlQuery = query.QueryText; // Retrieve the SQL query
 
             var response = await _taskContainer.GetItemQueryIterator<PersonalInformation>(query).ReadNextAsync(); // Execute query
+            return response.FirstOrDefault(); // Return first result
+        }
+
+        // Method to retrieve a task by ID in Candidate Table
+        public async Task<PersonalInformation> GetTaskByIdCandidateAsync(string userId)
+        {
+            // Define LINQ query to retrieve task by ID
+            var query = _taskContainer.GetItemLinqQueryable<PersonalInformation>()
+                .Where(t => t.id == userId)
+                .Take(1)
+                .ToQueryDefinition();
+
+            var sqlQuery = query.QueryText; // Retrieve the SQL query
+
+            var response = await _taskPersonContainer.GetItemQueryIterator<PersonalInformation>(query).ReadNextAsync(); // Execute query
             return response.FirstOrDefault(); // Return first result
         }
 
