@@ -34,6 +34,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Add Dependency Injection Add Scope
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

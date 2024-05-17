@@ -70,7 +70,7 @@ namespace DotNetTask.Models
             [JsonProperty("idNumber")]
             public string IdNumber { get; set; }
             [JsonProperty("dateOfBirth")]
-            public DateTime DateOfBirth { get; set; }
+            public int DateOfBirth { get; set; }
             [JsonProperty("gender")]
             public string Gender { get; set; }
             public List<SummeryInternShipProgram> summeryInternShipPrograms { get; set; } = new List<SummeryInternShipProgram>();
